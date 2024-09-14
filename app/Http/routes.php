@@ -16,7 +16,14 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    Cache::put('foo', 'bar', 10);
+    $data = [
+        'event' => 'UserSignedUp',
+        'data' => [
+            'username' => 'JohnDoe'
+        ],
+    ];
 
-    return Cache::get('foo');
+    Redis::publish('test-channel', json_encode($data));
+
+    return view('welcome');
 });
