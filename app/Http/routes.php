@@ -1,5 +1,9 @@
 <?php
 
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Redis;
+use Illuminate\Support\Facades\Route;
+
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -12,5 +16,7 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    Cache::put('foo', 'bar', 10);
+
+    return Cache::get('foo');
 });
